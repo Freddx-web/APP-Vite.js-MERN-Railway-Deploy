@@ -30,6 +30,10 @@ const UserSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', UserSchema);
 
+app.get('/', (req, res) => {
+  res.send('API de Autenticación con JWT y Cookies HTTP-only');
+})
+
 // Rutas de autenticación
 app.post('/api/register', async (req, res) => {
   try {
