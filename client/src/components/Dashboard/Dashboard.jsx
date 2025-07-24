@@ -1,6 +1,7 @@
 import { useAuth } from '../../context/AuthContext';
 import Button from 'react-bootstrap/Button';
-
+// Style Import
+import '../../styles/dashboard.css';
 
 function Dashboard() {
   const { user, logout } = useAuth();

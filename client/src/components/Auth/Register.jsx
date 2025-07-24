@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-
-import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
+
+// Style Login
+import '../../styles/alert_form.css'; 
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -21,10 +22,27 @@ function Register() {
       [e.target.name]: e.target.value
     });
   };
+  
+  const validateEmail = (email) => {
+    return /\S+@\S+\.\S+/.test(email);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+
+    if (!formData.name ||!formData.email || !formData.password) {
+      setError('Por favor, completa todos los campos.');
+      return;
+    }
+    if (!validateEmail(formData.email)) {
+      setError('Por favor, ingresa un correo electrónico válido.');
+      return;
+    }
+    if (formData.password.length < 6) {
+      setError('La contraseña debe tener al menos 6 caracteres.');
+      return;
+    }
     
     const result = await register(formData);
     if (!result.success) {
@@ -35,7 +53,7 @@ function Register() {
   return (
     <div className="auth-container">
       <h2>Registro</h2>
-      {error && <p className="error">{error}</p>}
+       {error &&<p className="custom-alert">{error}</p>}
       <form onSubmit={handleSubmit}>
         <div>
           <label>Nombre:</label>
@@ -44,7 +62,7 @@ function Register() {
             name="name" 
             value={formData.name} 
             onChange={handleChange} 
-            required 
+            
           />
         </div>
         <div>
@@ -54,7 +72,7 @@ function Register() {
             name="email" 
             value={formData.email} 
             onChange={handleChange} 
-            required 
+             
           />
         </div>
         <div>
@@ -64,7 +82,7 @@ function Register() {
             name="password" 
             value={formData.password} 
             onChange={handleChange} 
-            required 
+            
           />
         </div>
         <button type="submit">Registrarse</button>

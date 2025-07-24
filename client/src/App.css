@@ -4,6 +4,12 @@
   padding: 2rem;
   text-align: center;
 }
+nav {
+  background: #24806c;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+}
 
 .logo {
   height: 6em;
